@@ -11,7 +11,7 @@ pub fn is_symb(ch: u8) bool {
 
 pub fn tokenizer(string: []const u8) void {
     for (string) |ch| {
-        print("{} {}\n", .{ ch, is_symb(ch) });
+        print("{c} {}\n", .{ ch, is_symb(ch) });
     }
 }
 
