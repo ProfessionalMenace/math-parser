@@ -1,6 +1,17 @@
 const std = @import("std");
 const print = std.debug.print;
 
+const math_symbols = enum {
+    unknown,
+    number,
+    parethesis,
+    exponentiation,
+    multiplication,
+    division,
+    addition,
+    substration,
+};
+
 pub fn is_symb(ch: u8) bool {
     const ret_val: bool = switch (ch) {
         '+', '-', '=', '/', '^' => true,
