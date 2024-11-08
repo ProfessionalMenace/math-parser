@@ -4,12 +4,12 @@ const print = std.debug.print;
 const math_symbols = enum {
     unknown,
     number,
-    parethesis,
+    parenthesis,
     exponentiation,
     multiplication,
     division,
     addition,
-    substration,
+    substraction,
 };
 
 pub fn is_symb(ch: u8) bool {
@@ -41,4 +41,11 @@ pub fn tokenizer(string: []const u8) void {
 test "Print tokens in expression" {
     const string: []const u8 = "1+2-3*4+abc=69";
     tokenizer(string);
+}
+
+test "Run classifier" {
+    const string: []const u8 = "1+2-3*4+abc=69";
+    for (string) |ch| {
+        print("{c} {}\n", .{ ch, classifier(ch) });
+    }
 }
