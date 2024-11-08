@@ -20,6 +20,18 @@ pub fn is_symb(ch: u8) bool {
     return ret_val;
 }
 
+pub fn classifier(ch: u8) math_symbols {
+    const ret_val: math_symbols = switch (ch) {
+        '(', ')' => .parenthesis,
+        '*' => .multiplication,
+        '/' => .division,
+        '+' => .addition,
+        '-' => .substraction,
+        else => .unknown,
+    };
+    return ret_val;
+}
+
 pub fn tokenizer(string: []const u8) void {
     for (string) |ch| {
         print("{c} {}\n", .{ ch, is_symb(ch) });
