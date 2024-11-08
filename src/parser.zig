@@ -3,7 +3,7 @@ const print = std.debug.print;
 
 const math_symbols = enum {
     unknown,
-    number,
+    digit,
     parenthesis,
     exponentiation,
     multiplication,
