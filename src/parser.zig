@@ -4,6 +4,8 @@ const print = std.debug.print;
 const math_symbols = enum {
     unknown,
     digit,
+    variable,
+    equal_sign,
     parenthesis,
     exponentiation,
     multiplication,
@@ -23,7 +25,10 @@ pub fn is_symb(ch: u8) bool {
 pub fn classifier(ch: u8) math_symbols {
     const ret_val: math_symbols = switch (ch) {
         '0'...'9' => .digit,
-        '(', ')' => .parenthesis,
+        'a'...'z' => .variable,
+        'A'...'Z' => .variable,
+        '{', '}', '[', ']', '(', ')' => .parenthesis,
+        '=' => .equal_sign,
         '*' => .multiplication,
         '/' => .division,
         '+' => .addition,
