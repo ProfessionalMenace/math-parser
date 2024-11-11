@@ -1,7 +1,7 @@
 const std = @import("std");
 const print = std.debug.print;
 
-const math_symbols = enum {
+pub const math_symbols = enum {
     unknown,
     digit,
     variable,
