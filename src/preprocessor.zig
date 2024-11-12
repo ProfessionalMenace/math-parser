@@ -1,5 +1,7 @@
 const std = @import("std");
-const cls = @import("classifier.zig");
+const classifier = @import("classifier.zig");
+const symb = classifier.math_symbols;
+const classify = classifier.classifier;
 
 pub fn validate_parethesis(input: []u8, buffer: []u8) void {
     std.debug.print("Validating...", .{});
@@ -10,9 +12,9 @@ pub fn validate_parethesis(input: []u8, buffer: []u8) void {
 pub fn remove_unknown(input: []u8) void {
     var count: usize = 0;
     for (input, 0..) |ch, i| {
-        if (cls.classifier(ch) == cls.math_symbols.unknown) {
+        if (classify(ch) == symb.unknown) {
             count += 1;
-        } else if (count > 0) {
+        } else {
             input[i - count] = ch;
         }
     }
