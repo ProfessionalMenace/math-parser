@@ -22,7 +22,8 @@ pub fn remove_unknown(input: []u8) void {
 }
 
 test "remove unknown symbols" {
-    var str = [_]u8{ '#', 't', '#', '#', 'e', 's', 't', '#' };
-    remove_unknown(&str);
-    std.debug.print("{s}\n", .{str});
+    var str1 = [_]u8{ '#', 't', '#', '#', 'e', 's', 't', '#' };
+    const str2 = [_]u8{ 't', 'e', 's', 't', 0, 0, 0, 0 };
+    remove_unknown(&str1);
+    try std.testing.expectEqual(str1, str2);
 }
