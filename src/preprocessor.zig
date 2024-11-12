@@ -16,11 +16,13 @@ pub fn remove_unknown(input: []u8) void {
             input[i - count] = ch;
         }
     }
-    input[input.len - count] = 0;
+    while (count > 0) : (count -= 1) {
+        input[input.len - count] = 0;
+    }
 }
 
 test "remove unknown symbols" {
-    var str = [_]u8{ ' ', 't', ' ', ' ', 'e', 's', 't', ' ' };
+    var str = [_]u8{ '#', 't', '#', '#', 'e', 's', 't', '#' };
     remove_unknown(&str);
     std.debug.print("{s}\n", .{str});
 }
