@@ -20,7 +20,7 @@ pub fn remove_unknown(input: []u8) void {
 }
 
 test "remove unknown symbols" {
-    var str: [5]u8 = .{ 't', ' ', 'e', 's', 't' };
+    var str = [_]u8{ ' ', 't', ' ', ' ', 'e', 's', 't', ' ' };
     remove_unknown(&str);
     std.debug.print("{s}\n", .{str});
 }
