@@ -52,20 +52,38 @@ pub fn remove_unknown(input: []u8) void {
 }
 
 test "parenthesis test: matching" {
-    var buffer: [7]u8 = [_]u8{ 0, 0, 0, 0, 0, 0, 0 };
+    var buffer = [_]u8{ 0, 0, 0, 0, 0, 0 };
     var str = [_]u8{ '(', ')', '[', ']', '{', '}' };
     try std.testing.expect(validate_parenthesis(&str, &buffer) == true);
 }
 
 test "parenthesis test: all left" {
-    var buffer: [7]u8 = [_]u8{ 0, 0, 0, 0, 0, 0, 0 };
-    var str = [_]u8{ '(', '(', '(', '(', '(', '(' };
-    try std.testing.expect(validate_parenthesis(&str, &buffer) == false);
+    var buffer = [_]u8{ 0, 0, 0, 0, 0, 0 };
+    var str1 = [_]u8{ '(', '(', '(', '(', '(', '(' };
+    var str2 = [_]u8{'('};
+    try std.testing.expect(validate_parenthesis(&str1, &buffer) == false);
+    try std.testing.expect(validate_parenthesis(&str2, &buffer) == false);
 }
 
 test "parenthesis test: all righ" {
-    var buffer: [7]u8 = [_]u8{ 0, 0, 0, 0, 0, 0, 0 };
-    var str = [_]u8{ ')', ')', ')', ')', ')', ')' };
+    var buffer = [_]u8{ 0, 0, 0, 0, 0, 0 };
+    var str1 = [_]u8{ ')', ')', ')', ')', ')', ')' };
+    var str2 = [_]u8{')'};
+    try std.testing.expect(validate_parenthesis(&str1, &buffer) == false);
+    try std.testing.expect(validate_parenthesis(&str2, &buffer) == false);
+}
+
+test "parenthesis test: off by ones" {
+    var buffer = [_]u8{ 0, 0, 0, 0, 0, 0 };
+    var str1 = [_]u8{ '(', '(', ')' };
+    var str2 = [_]u8{ '(', ')', ')' };
+    try std.testing.expect(validate_parenthesis(&str1, &buffer) == false);
+    try std.testing.expect(validate_parenthesis(&str2, &buffer) == false);
+}
+
+test "parenthesis test: misc" {
+    var buffer = [_]u8{ 0, 0, 0, 0 };
+    var str = [_]u8{ '(', '[', ')', ')' };
     try std.testing.expect(validate_parenthesis(&str, &buffer) == false);
 }
 
