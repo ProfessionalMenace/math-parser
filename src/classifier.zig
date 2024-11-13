@@ -33,6 +33,6 @@ pub fn classifier(ch: u8) math_symbols {
 test "Run classifier" {
     const string: []const u8 = "1+2-3*4+abc=69";
     for (string) |ch| {
-        print("{c} {}\n", .{ ch, classifier(ch) });
+        try std.testing.expect(classifier(ch) != math_symbols.unknown);
     }
 }
