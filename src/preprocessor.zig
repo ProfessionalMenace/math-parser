@@ -3,10 +3,38 @@ const classifier = @import("classifier.zig");
 const symb = classifier.math_symbols;
 const classify = classifier.classifier;
 
-pub fn validate_parethesis(input: []u8, buffer: []u8) void {
-    std.debug.print("Validating...", .{});
-    _ = input;
-    _ = buffer;
+pub fn validate_parenthesis(input: []u8, buffer: []u8) bool {
+    var pos: usize = 0;
+    var is_valid: bool = true;
+
+    for (input) |ch| {
+        switch (ch) {
+            '{', '[', '(' => {
+                pos += 1;
+                buffer[pos] = ch;
+            },
+            ')' => {
+                is_valid = buffer[pos] == '(';
+                if (pos == 0) return false;
+                pos -= 1;
+            },
+            ']' => {
+                is_valid = buffer[pos] == '[';
+                if (pos == 0) return false;
+                pos -= 1;
+            },
+            '}' => {
+                is_valid = buffer[pos] == '{';
+                if (pos == 0) return false;
+                pos -= 1;
+            },
+            else => {},
+        }
+        if (is_valid == false) {
+            return false;
+        }
+    }
+    return pos == 0;
 }
 
 pub fn remove_unknown(input: []u8) void {
@@ -21,6 +49,24 @@ pub fn remove_unknown(input: []u8) void {
     while (count > 0) : (count -= 1) {
         input[input.len - count] = 0;
     }
+}
+
+test "parenthesis test: matching" {
+    var buffer: [7]u8 = [_]u8{ 0, 0, 0, 0, 0, 0, 0 };
+    var str = [_]u8{ '(', ')', '[', ']', '{', '}' };
+    try std.testing.expect(validate_parenthesis(&str, &buffer) == true);
+}
+
+test "parenthesis test: all left" {
+    var buffer: [7]u8 = [_]u8{ 0, 0, 0, 0, 0, 0, 0 };
+    var str = [_]u8{ '(', '(', '(', '(', '(', '(' };
+    try std.testing.expect(validate_parenthesis(&str, &buffer) == false);
+}
+
+test "parenthesis test: all righ" {
+    var buffer: [7]u8 = [_]u8{ 0, 0, 0, 0, 0, 0, 0 };
+    var str = [_]u8{ ')', ')', ')', ')', ')', ')' };
+    try std.testing.expect(validate_parenthesis(&str, &buffer) == false);
 }
 
 test "remove unknown symbols" {
