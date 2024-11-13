@@ -10,23 +10,23 @@ pub fn validate_parenthesis(input: []u8, buffer: []u8) bool {
     for (input) |ch| {
         switch (ch) {
             '{', '[', '(' => {
-                pos += 1;
                 buffer[pos] = ch;
+                pos += 1;
             },
             ')' => {
-                is_valid = buffer[pos] == '(';
                 if (pos == 0) return false;
                 pos -= 1;
+                is_valid = buffer[pos] == '(';
             },
             ']' => {
-                is_valid = buffer[pos] == '[';
                 if (pos == 0) return false;
                 pos -= 1;
+                is_valid = buffer[pos] == '[';
             },
             '}' => {
-                is_valid = buffer[pos] == '{';
                 if (pos == 0) return false;
                 pos -= 1;
+                is_valid = buffer[pos] == '{';
             },
             else => {},
         }
